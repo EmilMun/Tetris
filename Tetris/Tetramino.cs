@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Tetris
 {
@@ -20,11 +21,15 @@ namespace Tetris
         private int _posX;
         private int _posY;
         private int[,] _matrixShape;
+        private int _cMapX, _cMapY;
 
-        public Tetramino(int _x, int _y)
+        public Tetramino(int _x, int _y, int cMapX, int cMapY)
         {
             this._posX = _x;
             this._posY = _y;
+
+            _cMapX = cMapX;
+            _cMapY = cMapY;
 
             _matrixShape = cTetraminoS;
         }
@@ -34,15 +39,18 @@ namespace Tetris
             switch (_move)
             {
                 case WereMove.Down:
-                    _posY++;
+                    if (_posY + 3 < _cMapY)
+                        _posY++;
                     break;
                 
                 case WereMove.Right:
-                    _posX++;
+                    if (_posX + 2 < _cMapX)
+                        _posX++;
                     break; 
                 
                 case WereMove.Left:
-                    _posY--;
+                    if (_posX > 0)
+                        _posX--;
                     break;
 
                 default:
